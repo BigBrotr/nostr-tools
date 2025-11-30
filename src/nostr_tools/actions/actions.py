@@ -356,6 +356,10 @@ async def check_connectivity(client: Client) -> tuple[Optional[int], bool]:
     except Exception as e:
         logger.exception(f"Unexpected error during connectivity check: {e}")
 
+    # Ensure consistency - if not openable, rtt_open must be None
+    if not openable:
+        rtt_open = None
+
     return rtt_open, openable
 
 
@@ -408,6 +412,10 @@ async def check_readability(client: Client) -> tuple[Optional[int], bool]:
         logger.debug(f"Relay connection error: {e}")
     except Exception as e:
         logger.exception(f"Unexpected error during readability check: {e}")
+
+    # Ensure consistency - if not readable, rtt_read must be None
+    if not readable:
+        rtt_read = None
 
     return rtt_read, readable
 
@@ -475,6 +483,10 @@ async def check_writability(
         logger.debug(f"Relay connection error: {e}")
     except Exception as e:
         logger.exception(f"Unexpected error during writability check: {e}")
+
+    # Ensure consistency - if not writable, rtt_write must be None
+    if not writable:
+        rtt_write = None
 
     return rtt_write, writable
 

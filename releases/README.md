@@ -8,12 +8,13 @@ This directory contains detailed release notes for all versions of nostr-tools, 
 
 | Version | Release Date | Status | Release Notes | Key Features | Commit |
 |---------|--------------|--------|---------------|--------------|--------|
-| [v1.4.0](v1.4.0.md) | 2025-11-03 | ✅ **Current & Only Supported** | Filter validation enhancement | Non-negative integer support, zero value acceptance | TBD |
+| [v1.4.1](v1.4.1.md) | 2025-11-30 | ✅ **Current & Only Supported** | RTT consistency bug fix | RTT/capability flag consistency, defensive checks | TBD |
 
 ### End of Life Versions
 
 | Version | Release Date | Status | Release Notes | Key Features | Commit |
 |---------|--------------|--------|---------------|--------------|--------|
+| [v1.4.0](v1.4.0.md) | 2025-11-03 | ❌ End of Life | Filter validation enhancement | Non-negative integer support, zero value acceptance | `43e425d` |
 | [v1.3.0](v1.3.0.md) | 2025-11-02 | ❌ End of Life | Enhanced validation & documentation | is_valid properties, comprehensive validation, enhanced docs | `63cf17b` |
 | [v1.2.1](v1.2.1.md) | 2025-10-05 | ❌ End of Life | Filter API enhancement | from_subscription_filter() method, comprehensive tests | `18637de` |
 | [v1.2.0](v1.2.0.md) | 2025-10-04 | ❌ End of Life | Documentation & release management | Comprehensive docs, version consolidation, support policy | `02276d2` |
@@ -27,7 +28,8 @@ This directory contains detailed release notes for all versions of nostr-tools, 
 
 | Version | Support Status | End of Support |
 |---------|----------------|----------------|
-| 1.4.0   | ✅ **Only Supported** | TBD            |
+| 1.4.1   | ✅ **Only Supported** | TBD            |
+| 1.4.0   | ❌ End of Life | 2025-11-30     |
 | 1.3.0   | ❌ End of Life | 2025-11-03     |
 | 1.2.1   | ❌ End of Life | 2025-11-02     |
 | 1.2.0   | ❌ End of Life | 2025-10-05     |
@@ -37,9 +39,9 @@ This directory contains detailed release notes for all versions of nostr-tools, 
 
 ### Support Timeline
 
-- **Active Support**: v1.4.0 only - bug fixes, security updates, and new features
-- **End of Life**: All previous versions (v1.3.0, v1.2.1, v1.2.0, v1.1.x, v1.0.x, v0.x.x) - no further updates or support
-- **Migration Required**: Users must upgrade to v1.4.0 for continued support
+- **Active Support**: v1.4.1 only - bug fixes, security updates, and new features
+- **End of Life**: All previous versions (v1.4.0, v1.3.0, v1.2.1, v1.2.0, v1.1.x, v1.0.x, v0.x.x) - no further updates or support
+- **Migration Required**: Users must upgrade to v1.4.1 for continued support
 
 We follow semantic versioning and maintain backward compatibility within major versions.
 
@@ -59,7 +61,15 @@ Each release note includes:
 
 ## ⚠️ Important Migration Notes
 
-### v1.4.0 - Current & Only Supported
+### v1.4.1 - Current & Only Supported
+- **No Breaking Changes** from v1.4.0
+- All existing APIs remain the same
+- Bug fix: RTT values now correctly set to None when capability flags are False
+- Added defensive consistency checks to check_connectivity, check_readability, and check_writability
+- Fixes `Nip66ValidationError` when testing relays that reject subscriptions
+- No code changes required for existing functionality
+
+### v1.4.0 Breaking Changes (End of Life)
 - **No Breaking Changes** from v1.3.0
 - All existing APIs remain the same
 - Filter validation now accepts zero values for `since`, `until`, and `limit` fields
@@ -88,19 +98,19 @@ Each release note includes:
 
 **Recommended Upgrade Path**
 ```bash
-# Upgrade to v1.3.0 (latest and only supported version)
-pip install --upgrade nostr-tools==1.3.0
+# Upgrade to v1.4.1 (latest and only supported version)
+pip install --upgrade nostr-tools==1.4.1
 ```
 
 **Migration Steps**
 1. **Review Release Notes** - Check detailed release notes for your current version
-2. **Update Dependencies** - Upgrade to v1.3.0
+2. **Update Dependencies** - Upgrade to v1.4.1
 3. **Test Your Code** - Verify compatibility with new version
 4. **Update Documentation** - Update your project documentation if needed
 
 ## 🚀 Quick Links
 
-- **[Latest Release](v1.3.0.md)** - Current and only supported version
+- **[Latest Release](v1.4.1.md)** - Current and only supported version
 - **[Changelog](../CHANGELOG.md)** - Detailed changelog in main repository
 - **[PyPI Package](https://pypi.org/project/nostr-tools/)** - Install from PyPI
 - **[GitHub Repository](https://github.com/bigbrotr/nostr-tools)** - Source code and issues
@@ -124,7 +134,7 @@ When creating a new release:
 
 ---
 
-**Last Updated**: November 2, 2025
+**Last Updated**: November 30, 2025
 **Maintained by**: [Bigbrotr](https://github.com/bigbrotr)
 
-**⚠️ Important**: Only v1.3.0 is currently supported. All previous versions are end-of-life as of November 2, 2025.
+**⚠️ Important**: Only v1.4.1 is currently supported. All previous versions are end-of-life as of November 30, 2025.

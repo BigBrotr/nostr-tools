@@ -7,7 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## ⚠️ Important Notice
 
-**Only v1.4.0 is currently supported.** All previous versions (v1.3.0, v1.2.1, v1.2.0, v1.1.x, v1.0.x, v0.x.x) are end-of-life as of November 3, 2025. Users must upgrade to v1.4.0 for continued support.
+**Only v1.4.1 is currently supported.** All previous versions (v1.4.0, v1.3.0, v1.2.1, v1.2.0, v1.1.x, v1.0.x, v0.x.x) are end-of-life as of November 30, 2025. Users must upgrade to v1.4.1 for continued support.
+
+## [1.4.1] - 2025-11-30
+
+### Fixed
+
+#### RTT and Capability Flag Consistency
+- **check_readability Bug Fix** - Fixed issue where `rtt_read` could be non-None while `readable` was False, causing `Nip66ValidationError`
+  - Root cause: RTT was set on first message received before checking message type
+  - If relay responded with CLOSED message, function exited with measured RTT but `readable=False`
+  - Added defensive check: if `readable` is False, `rtt_read` is set to None
+- **check_writability Defensive Check** - Added consistency check to ensure `rtt_write` is None when `writable` is False
+- **check_connectivity Defensive Check** - Added consistency check to ensure `rtt_open` is None when `openable` is False
+
+### Technical Details
+
+**Modified Files (1 file, +9/-0 lines)**
+- actions.py - Added 3 consistency checks with comments at the end of check_connectivity, check_readability, and check_writability functions
+
+**All Tests Passing**
+- 541 total tests
+- 80%+ code coverage maintained
+- Full type checking with MyPy
+- All quality checks passing
+
+---
 
 ## [1.4.0] - 2025-11-03
 
@@ -305,7 +330,8 @@ This is the first stable release of nostr-tools, a comprehensive Python library 
 
 | Version | Support Status | End of Support |
 |---------|----------------|----------------|
-| 1.4.0   | ✅ **Only Supported** | TBD            |
+| 1.4.1   | ✅ **Only Supported** | TBD            |
+| 1.4.0   | ❌ End of Life | 2025-11-30     |
 | 1.3.0   | ❌ End of Life | 2025-11-03     |
 | 1.2.1   | ❌ End of Life | 2025-11-02     |
 | 1.2.0   | ❌ End of Life | 2025-10-05     |
@@ -315,9 +341,9 @@ This is the first stable release of nostr-tools, a comprehensive Python library 
 
 ### Support Timeline
 
-- **Active Support**: v1.4.0 only - bug fixes, security updates, and new features
-- **End of Life**: All previous versions (v1.3.0, v1.2.1, v1.2.0, v1.1.x, v1.0.x, v0.x.x) - no further updates or support
-- **Migration Required**: Users must upgrade to v1.4.0 for continued support
+- **Active Support**: v1.4.1 only - bug fixes, security updates, and new features
+- **End of Life**: All previous versions (v1.4.0, v1.3.0, v1.2.1, v1.2.0, v1.1.x, v1.0.x, v0.x.x) - no further updates or support
+- **Migration Required**: Users must upgrade to v1.4.1 for continued support
 
 We follow semantic versioning and maintain backward compatibility within major versions.
 
